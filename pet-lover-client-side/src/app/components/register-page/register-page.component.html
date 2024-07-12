@@ -3,7 +3,7 @@
     <div class="container">
         <div class="card " style="width: 18rem;">
             <div class="card-body">
-                <form [formGroup]="signForm">
+                <form [formGroup]="signForm" (ngSubmit)="getData()">
                     <div class="form-group mb-2">
                       <input type="email" class="form-control" formControlName="email" placeholder="Enter Email">
                     </div>
@@ -13,7 +13,7 @@
                     <div class="form-group mb-2">
                         <input type="password" class="form-control" formControlName="confirm" placeholder="Confirm Password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Signup</button>
+                    <button type="submit" class="btn btn-primary" >Signup</button>
                 </form>
             </div>
         </div>
