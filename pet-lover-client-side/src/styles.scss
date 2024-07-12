@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
+@font-face {
+    font-family: josefin slab;
+    src: url("/src/assets/fonts/Josefin_Slab/JosefinSlab-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: josefin sans;
+    src: url("/src/assets/fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf");
+}
+
+body{
+    background-color: #F6DCAC;
+}
