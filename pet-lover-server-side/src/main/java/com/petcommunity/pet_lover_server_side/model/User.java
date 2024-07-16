@@ -1,5 +1,6 @@
 package com.petcommunity.pet_lover_server_side.model;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,11 +13,14 @@ import jakarta.persistence.UniqueConstraint;
 public class User {
 	
 	@Id
+	@Nonnull
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
 	
+	@Nonnull
 	private String email;
 	
+	@Nonnull
 	private String password;
 	
 	public User() {

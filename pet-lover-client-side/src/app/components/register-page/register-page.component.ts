@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationApiServiceService } from '../../services/authapiService/authentication-api-service.service';
+import { responseMsg } from '../../constants/responseMsg';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-page',
@@ -10,7 +12,7 @@ import { AuthenticationApiServiceService } from '../../services/authapiService/a
 export class RegisterPageComponent implements OnInit{
   signForm!: FormGroup;
 
-  constructor(private authservice:AuthenticationApiServiceService){
+  constructor(private authservice:AuthenticationApiServiceService,private toastr: ToastrService){
   }
 
   ngOnInit(): void {
@@ -22,17 +24,20 @@ export class RegisterPageComponent implements OnInit{
   }
 
   async getData(){
-    console.log(this.signForm.value);  
     const data={
       email: this.signForm.value.email,
       password : this.signForm.value.password
     }
     this.authservice.register(data).subscribe({
-      next: (respo)=> {
-        console.log("inside subscribe method",respo);
+      next: (respo:any)=> {
+        if(respo.statusCode == 200){
+          this.toastr.success(respo.message);
+        } else {
+          this.toastr.warning(respo.message);
+        }
       },
       error: (error)=>{
-        console.log("Something went wrong",error);
+        this.toastr.warning("Something went wrong");
       }
     });
   }
