@@ -1,6 +1,12 @@
 package com.petcommunity.pet_lover_server_side.model;
 
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "\"user\"" , uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "\"user\"" , uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
 	
 	@Id
@@ -18,17 +24,26 @@ public class User {
 	private Long id;
 	
 	@Nonnull
-	private String email;
+	private String username;
 	
 	@Nonnull
 	private String password;
 	
+	 @CreationTimestamp
+	 @Column(updatable = false, name = "created_at")
+	 private Date createdAt;
+
+	 @UpdateTimestamp
+	 @Column(name = "updated_at")
+	 private Date updatedAt;
+	
 	public User() {
 	}
 	
-	public User(String email, String password) {
+
+	public User(String username, String password) {
 		super();
-		this.email = email;
+		this.username = username;
 		this.password = password;
 	}
 	
@@ -41,12 +56,12 @@ public class User {
 		this.id = id;
 	}
 	
-	public String getEmail() {
-		return email;
+	public String getusername() {
+		return username;
 	}
 	
-	public void setEmail(String email) {
-		this.email = email;
+	public void setusername(String username) {
+		this.username = username;
 	}
 	
 	public String getPassword() {
@@ -59,7 +74,23 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+	}
+	
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 }

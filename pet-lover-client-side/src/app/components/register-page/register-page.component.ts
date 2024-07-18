@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationApiServiceService } from '../../services/authapiService/authentication-api-service.service';
-import { responseMsg } from '../../constants/responseMsg';
-import { ToastrService } from 'ngx-toastr';
+import { ToastMessageService } from '../../services/toastMessageService/toast-message.service';
+import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss'
 })
-export class RegisterPageComponent implements OnInit{
+export class RegisterPageComponent implements OnInit, OnDestroy{
+  private destroy$ = new Subject();
   signForm!: FormGroup;
 
-  constructor(private authservice:AuthenticationApiServiceService,private toastr: ToastrService){
+  constructor(private authservice:AuthenticationApiServiceService,private toastMsg: ToastMessageService, private routes:Router){
   }
 
   ngOnInit(): void {
@@ -28,18 +30,20 @@ export class RegisterPageComponent implements OnInit{
       email: this.signForm.value.email,
       password : this.signForm.value.password
     }
-    this.authservice.register(data).subscribe({
+    this.authservice.register(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (respo:any)=> {
         if(respo.statusCode == 200){
-          this.toastr.success(respo.message);
-        } else {
-          this.toastr.warning(respo.message);
-        }
+          this.routes.navigate(['login']);
+        } 
       },
       error: (error)=>{
-        this.toastr.warning("Something went wrong");
+        this.toastMsg.generateToast('error','something went wrong');
       }
     });
   }
   
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 }
