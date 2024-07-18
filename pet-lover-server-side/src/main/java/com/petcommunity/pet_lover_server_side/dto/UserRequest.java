@@ -13,7 +13,6 @@ public class UserRequest {
 	        this.username = username;
 	    }
 	 
-	   
 	    public String getPassword() {
 	        return password;
 	    }
@@ -21,6 +20,5 @@ public class UserRequest {
 	    public void setPassword(String password) {
 	        this.password = password;
 	    }
-	    
-	   
+	    	   
 }

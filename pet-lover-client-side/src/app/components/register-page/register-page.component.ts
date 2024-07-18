@@ -27,7 +27,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
 
   async getData(){
     const data={
-      email: this.signForm.value.email,
+      username: this.signForm.value.email,
       password : this.signForm.value.password
     }
     this.authservice.register(data).pipe(takeUntil(this.destroy$)).subscribe({

@@ -1,9 +1,13 @@
 package com.petcommunity.pet_lover_server_side.model;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
@@ -16,7 +20,7 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "\"user\"" , uniqueConstraints = @UniqueConstraint(columnNames = "username"))
-public class User {
+public class User implements UserDetails{
 	
 	@Id
 	@Nonnull
@@ -56,11 +60,12 @@ public class User {
 		this.id = id;
 	}
 	
-	public String getusername() {
+	@Override
+	public String getUsername() {
 		return username;
 	}
 	
-	public void setusername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 	
@@ -72,10 +77,6 @@ public class User {
 		this.password = password;
 	}
 	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
-	}
 	
 	public Date getCreatedAt() {
 		return createdAt;
@@ -91,6 +92,36 @@ public class User {
 	
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	@Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+	
+	@Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
 	}
 	
 }

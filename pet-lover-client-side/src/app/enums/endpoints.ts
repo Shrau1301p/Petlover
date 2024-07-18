@@ -1,3 +1,4 @@
 export enum ENDPOINTS{
-    REGISTER = 'register'
+    REGISTER = 'register',
+    LOGIN = 'login'
 }

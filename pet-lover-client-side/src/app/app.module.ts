@@ -10,12 +10,14 @@ import { AuthInterceptor } from './authentication/auth-interceptor.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
