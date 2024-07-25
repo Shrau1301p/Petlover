@@ -1,8 +1,5 @@
 package com.petcommunity.pet_lover_server_side.config;
 
-import java.util.List;
-
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,9 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.petcommunity.pet_lover_server_side.filter.JwtFilter;
 
@@ -38,8 +32,8 @@ public class SecurityConfiguration {
 	        http.csrf()
 	                .disable()
 	                .authorizeHttpRequests()
-	                .requestMatchers("/**","/h2-console/**").permitAll()
-	                .requestMatchers(PathRequest.toH2Console()).permitAll()
+	                .requestMatchers("/**").permitAll()
+//	                .requestMatchers(PathRequest.toH2Console()).permitAll()
 	                .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 	                .anyRequest()
 	                .authenticated()

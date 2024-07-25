@@ -26,6 +26,13 @@ export class HomepageComponent implements OnInit, OnDestroy{
       }
     });
   }
+
+  logout(){
+    localStorage.clear();
+    this.toastMsg.generateToast("success","Logout Successfully");
+    this.routes.navigate(['login']);
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();

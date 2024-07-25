@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtFilter extends OncePerRequestFilter{
 	
+	@Autowired
 	private HandlerExceptionResolver handlerExceptionResolver;
 	
 	@Autowired
