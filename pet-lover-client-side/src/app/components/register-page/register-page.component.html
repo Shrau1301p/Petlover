@@ -1,6 +1,6 @@
 <img src="../../../assets/auth/border.svg" />        
+<div class="container">
     <img src="../../../assets/auth/circle.svg" style="padding-top: 1.7rem;padding-bottom: 1.7rem;" />
-    <div class="container">
         <div class="card " style="width: 18rem;">
             <div class="card-body">
                 <form [formGroup]="signForm" (ngSubmit)="getData()">
@@ -17,21 +17,20 @@
                 </form>
             </div>
         </div>
-    </div>
+    
     <img src="../../../assets/auth/title.png" class="title-image"/>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex align-items-end flex-column mb-3">
         <div>
-            <img src="../../../assets/auth/google.svg" />
+            <img src="../../../assets/auth/google.svg" class="goggle p-2"/>
             <img src="../../../assets/auth/facebook.svg" />
         </div>
         <div>
-            <hr>or<hr>
-            <!-- <img src="../../../assets/auth/or.svg" /> -->
+            <!-- <hr>or<hr> -->
+            <img src="../../../assets/auth/or.svg" />
         </div>
-        <div class="card-text">
+        <div class="card-text  mt-3">
             Already Have An Account.!<span><a routerLink="/login">Login</a></span>
         </div>
     </div>
-<div class="bottom-border">
-    <img src="../../../assets/auth/border.svg"/>        
-</div>    
+</div>
+<img src="../../../assets/auth/border.svg"/>        
