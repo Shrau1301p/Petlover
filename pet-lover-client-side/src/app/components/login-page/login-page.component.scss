@@ -1,17 +1,18 @@
-body{
-    background-color: #F6DCAC;
+.container {
+    width: 100%;
+    height: 100%;
 }
-
 .card{
+    width: 18rem;
     margin-top: -23rem;
-    margin-left: 0.7rem;
+    margin-left: 8rem;
     border: none;
-    background-color: #F6DCAC;
+    //background-color: #F6DCAC;
 }
 
-.bottom-border{
-    position: relative;
-    bottom: 0;
+.circle-img{
+    padding-top: 1.7rem;
+    padding-bottom: 1.7rem;
 }
 
 .form-group{
@@ -33,14 +34,11 @@ body{
     text-align: center;
     height: 2.5rem;
     font-family: "josefin sans";
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .title-image{
     margin-left: 32rem;
-    margin-top: -23rem;
+    margin-top: -16rem;
 }
 
 .card-text{
