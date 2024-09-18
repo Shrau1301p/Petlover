@@ -2,7 +2,7 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // regular style toast
 @import 'ngx-toastr/toastr';
-
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 // // bootstrap style toast
 // // or import a bootstrap 4 alert styled design (SASS ONLY)
 // // should be after your bootstrap imports, it uses bs4 variables, mixins, functions
@@ -30,4 +30,7 @@
 
 body{
     background-color: #F6DCAC;
+    --border-color: #01204E;
+    // overflow: hidden;
 }
+

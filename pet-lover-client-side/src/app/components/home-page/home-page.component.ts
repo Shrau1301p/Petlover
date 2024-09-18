@@ -5,11 +5,11 @@ import { ToastMessageService } from '../../services/toastMessageService/toast-me
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss'
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.scss'
 })
-export class HomepageComponent implements OnInit, OnDestroy{
+export class HomePageComponent implements OnInit, OnDestroy{
   private destroy$ = new Subject();
   item!: {name:string}[];
   constructor(private authservice:AuthenticationApiServiceService,private toastMsg: ToastMessageService, private routes:Router){}
