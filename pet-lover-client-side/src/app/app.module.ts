@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 // import { HomepageComponent } from './components/homepage/homepage.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,9 @@ import { HomePageComponent } from './components/home-page/home-page.component';
     RegisterPageComponent,
     LoginPageComponent,
     HomePageComponent,
-    
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
