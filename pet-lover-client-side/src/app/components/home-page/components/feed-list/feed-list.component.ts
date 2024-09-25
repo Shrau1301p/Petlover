@@ -1,5 +1,4 @@
-import { Component, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { CreateProfileModalComponent } from '../../../../modal/create-profile-modal/create-profile-modal.component';
@@ -11,19 +10,16 @@ import { ToastMessageService } from '../../../../services/toastMessageService/to
   templateUrl: './feed-list.component.html',
   styleUrl: './feed-list.component.scss'
 })
+
 export class FeedListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
-  // profileForm!: FormGroup;
+  
   item!: { name: string }[];
   userLoginFor: string | null = localStorage.getItem("isFirstTimeLogin");
-  profile! :any;
+  
   constructor(public dialog: MatDialog,private authservice:AuthenticationApiServiceService,private toastMsg: ToastMessageService) {}
 
-  ngOnInit(): void {
-      // this.profileForm = new FormGroup({
-      //   dob : new FormControl(''),
-      //   describtion : new FormControl('')
-      // })    
+  ngOnInit(): void {   
     this.item = [
       {
         name: "Rockey"
@@ -40,11 +36,11 @@ export class FeedListComponent implements OnInit, OnDestroy {
       {
         name: "Pug"
       }
-    ]
-  }
-  addProfile(){
+    ];
 
+    
   }
+ 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateProfileModalComponent, {
       width: '300px'
@@ -66,14 +62,12 @@ export class FeedListComponent implements OnInit, OnDestroy {
     });
   }
   
-  async auth(){
-    
+  async auth() : Promise<void>{
     this.authservice.auth().pipe(takeUntil(this.destroy$)).subscribe({
       next: (respo:any)=> {
         console.log(respo);
-        
       },
-      error: (error)=>{
+      error: ()=>{
         this.toastMsg.generateToast('error','something went wrong');
       }
     });

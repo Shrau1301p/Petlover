@@ -7,6 +7,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldControl, MatFormFieldModule
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { FileUploadModule } from 'ng2-file-upload';
+import {MatSelectModule} from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +45,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatDatepickerModule,
     ImageCropperComponent,
     FileUploadModule,
+    MatSelectModule,
     ToastrModule.forRoot()  
   ],
   providers: [
