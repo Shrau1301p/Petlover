@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Profile } from '../../constants/profile';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FileUploader } from 'ng2-file-upload';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationApiServiceService } from '../../services/authapiService/authentication-api-service.service';
@@ -20,9 +19,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   
   profileForm!:FormGroup;
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-  data!:any;
+  data!:Profile;
   file!: File;
   id!: string;
   authTokenBearer : string | undefined = `Bearer ${localStorage.getItem('token') || undefined}` 
@@ -41,9 +38,9 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     this.profileForm = new FormGroup({
       name : new FormControl(''),
       dob : new FormControl(''),
-      describtion : new FormControl('')
+      describtion : new FormControl(''),
+      category : new FormControl('')
     })   
-
 
     this.authservice.auth().pipe(takeUntil(this.destroy$)).subscribe({
       next: (respo:any)=> {
@@ -55,22 +52,18 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     });
     
   }
+  
   fileChangeEvent(event: any): void {
-    // this.imageChangedEvent = event;
     this.file = event.target.files.item(0);
   }
 
-  // onImageCropped(event: ImageCroppedEvent) {
-  //   this.croppedImage = event.base64; // Store the cropped image
-  // }
-  
   onSubmit(): void {
     this.uploader.uploadAll();
     this.data  = {
       id: this.id,
       pet_name : this.profileForm.value.name,
       dob_date: this.profileForm.value.dob,
-      category : null,
+      category : this.profileForm.value.category,
       describtion : this.profileForm.value.describtion, 
     }
     this.dialogRef.close(this.data);

@@ -1,4 +1,4 @@
-<!-- <div *ngIf="!userLoginFor">
+<div *ngIf="!userLoginFor">
   <div class="scroll-bar">
     <div style="overflow-y: scroll; max-height: fit-content">
       <div class="card" *ngFor="let a of item">
@@ -25,13 +25,12 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
-<div class="card profile-form">
+<div class="card profile-form" *ngIf="userLoginFor">
   <h1 class="card-title">Profile First!</h1>
   <p class="card-subtitle">Create Your Profile & Dive into the Fun!</p>
   <!-- Button trigger modal -->
   <button (click)="auth()">Check the authentication</button>
   <button mat-raised-button (click)="openDialog()">Create Profile</button>
 </div>
-

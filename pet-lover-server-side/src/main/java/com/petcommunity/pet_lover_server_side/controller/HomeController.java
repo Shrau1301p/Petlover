@@ -37,7 +37,7 @@ public class HomeController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	        User currentUser = (User) authentication.getPrincipal();
 	        responseMessage.setData(currentUser);
-	        responseMessage.setMessage("Authentication Successfull");
+//	        responseMessage.setMessage("Authentication Successfull");
 	        responseMessage.setStatusCode(HttpStatus.OK.value());
 	        return ResponseEntity.ok(responseMessage);
 		} catch (Exception e) {
