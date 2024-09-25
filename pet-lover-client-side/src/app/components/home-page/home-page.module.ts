@@ -10,6 +10,7 @@ import { NavsidebarComponent } from '../../shared/components/navsidebar/navsideb
 // import { HomePageComponent } from './home-page.component';
 
 
+
 @NgModule({
   declarations: [ 
     FeedListComponent, ProfilePageComponent
@@ -19,6 +20,7 @@ import { NavsidebarComponent } from '../../shared/components/navsidebar/navsideb
     ReactiveFormsModule,
     HomePageRoutingModule,
     SharedModule
+    
   ]
 })
 export class HomePageModule { }

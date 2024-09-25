@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.petcommunity.pet_lover_server_side.dto.ProfileDetails;
 import com.petcommunity.pet_lover_server_side.dto.UserRequest;
 import com.petcommunity.pet_lover_server_side.model.User;
 import com.petcommunity.pet_lover_server_side.repository.UserRepository;
@@ -46,5 +47,13 @@ public class UserServices{
 	        return userRepository.findByUsername(input.getUsername())
 	                .orElseThrow();
 	    }
-
+	    
+	    public User addProfile(ProfileDetails input) {
+	    	User user = userRepository.findById(input.getId()).orElseThrow();
+	        user.setPetName(input.getNameString());
+	        user.setDobDate(input.getDobString());
+	        user.setCategory(input.getCategory());
+	        user.setDescribtion(input.getDescribtionString());
+	        return userRepository.save(user);
+	    }
 }

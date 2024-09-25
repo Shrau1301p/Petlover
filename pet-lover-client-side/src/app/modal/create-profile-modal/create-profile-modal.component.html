@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Create Profile</h2>
+<mat-dialog-content>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <input class="avatar" type="file" ng2FileSelect [uploader]="uploader" />
+    <mat-form-field>
+      <mat-label>Enter Username</mat-label>
+      <input matInput placeholder="Enter Name" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="dog">Dog</mat-option>
+        <mat-option value="birds">Birds</mat-option>
+        <mat-option value="cat">Cat</mat-option>
+        <mat-option value="rabbit">Rabbit</mat-option>
+        <mat-option value="fish">Fish</mat-option>
+        <mat-option value="pig">Guinea Pig</mat-option>
+        <mat-option value="turtule">Turtule</mat-option>
+        <mat-option value="other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput formControlName="dob" [matDatepicker]="picker" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter Describtion</mat-label>
+      <input
+        matInput
+        placeholder="Enter Describtion"
+        formControlName="describtion"
+      />
+    </mat-form-field>
+    <button mat-button type="submit">Submit</button>
+  </form>
+</mat-dialog-content>
+<!-- <mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions> -->
