@@ -1,0 +1,35 @@
+.menu-bar{
+    font-family: "josefin slab";
+    font-size: larger;
+    font-weight: 600;
+    width: 15%;
+    
+    .menu-items{
+        color: white;
+        background-color: #01204E;
+    }
+    img{
+        padding: 2rem;
+        margin-left: 4rem;
+        position: relative;
+    }
+}
+// .scroll-bar{
+//     width: 85%;
+//     padding-top: 1rem;
+//     margin-left: 25%;
+//     .card{
+//         margin: 1rem;
+//         padding: 1rem;
+//         width: 60%;
+//         border-radius: 1.3rem;
+//         height: fit-content;
+//         background-color: #F6DCAC;
+//         img{
+//             padding: 0.6rem;
+//         }
+//         i{
+//             padding: 0.3rem;
+//         }
+//     }
+// }

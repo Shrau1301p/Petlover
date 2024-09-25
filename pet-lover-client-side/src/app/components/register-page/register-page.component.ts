@@ -33,6 +33,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy{
     this.authservice.register(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (respo:any)=> {
         if(respo.statusCode == 200){
+          localStorage.setItem("isFirstTimeLogin","true");
           this.routes.navigate(['login']);
         } 
       },

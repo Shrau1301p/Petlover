@@ -22,18 +22,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtFilter extends OncePerRequestFilter{
-	
-	@Autowired
-	private HandlerExceptionResolver handlerExceptionResolver;
-	
-	@Autowired
-    private  JwtAuthenticationService jwtService;
-    
-	private  UserDetailsService userDetailsService;
+public class JwtFilter extends OncePerRequestFilter {
 
-    public void JwtAuthenticationFilter(
-    		JwtAuthenticationService jwtService,
+    private final JwtAuthenticationService jwtService;
+    private final UserDetailsService userDetailsService;
+    private final HandlerExceptionResolver handlerExceptionResolver;
+
+    @Autowired
+    public JwtFilter(
+        JwtAuthenticationService jwtService,
         UserDetailsService userDetailsService,
         HandlerExceptionResolver handlerExceptionResolver
     ) {
@@ -50,20 +47,23 @@ public class JwtFilter extends OncePerRequestFilter{
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
 
+        // If no authorization header or it doesn't start with "Bearer ", pass the request forward
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            final String jwt = authHeader.substring(7);
-            final String userEmail = jwtService.extractUsername(jwt);
+            final String jwt = authHeader.substring(7); // Remove "Bearer " from the token
+            final String userEmail = jwtService.extractUsername(jwt); // Extract the email from the token
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+            // If the user is not yet authenticated
             if (userEmail != null && authentication == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
+                // Validate the token and if valid, authenticate the user
                 if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
@@ -72,12 +72,16 @@ public class JwtFilter extends OncePerRequestFilter{
                     );
 
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    // Set authentication in the security context
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
 
+            // Continue with the filter chain
             filterChain.doFilter(request, response);
         } catch (Exception exception) {
+            // Use the handler exception resolver to handle errors
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
     }
