@@ -33,6 +33,13 @@ public class User implements UserDetails{
 	@Nonnull
 	private String password;
 	
+	private String petName;
+	private Date dobDate;
+	private String category;
+	
+	private String describtion;
+	private String aavtar;
+	
 	 @CreationTimestamp
 	 @Column(updatable = false, name = "created_at")
 	 private Date createdAt;
@@ -41,16 +48,24 @@ public class User implements UserDetails{
 	 @Column(name = "updated_at")
 	 private Date updatedAt;
 	
-	public User() {
+	
+	 public User() {
 	}
 	
-
 	public User(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
 	
+	public User(String petName, Date dobDate, String category, String describtion, String aavtar) {
+		super();
+		this.petName = petName;
+		this.dobDate = dobDate;
+		this.category = category;
+		this.describtion = describtion;
+		this.aavtar = aavtar;
+	}
 	
 	public Long getId() {
 		return id;
@@ -77,7 +92,46 @@ public class User implements UserDetails{
 		this.password = password;
 	}
 	
-	
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
+	public Date getDobDate() {
+		return dobDate;
+	}
+
+	public void setDobDate(Date dobDate) {
+		this.dobDate = dobDate;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getDescribtion() {
+		return describtion;
+	}
+
+	public void setDescribtion(String describtion) {
+		this.describtion = describtion;
+	}
+
+	public String getAavtar() {
+		return aavtar;
+	}
+
+	public void setAavtar(String aavtar) {
+		this.aavtar = aavtar;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -118,10 +172,14 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-	
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", petName=" + petName
+				+ ", dobDate=" + dobDate + ", category=" + category + ", describtion=" + describtion + ", aavtar="
+				+ aavtar + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
+	
+	
 	
 }

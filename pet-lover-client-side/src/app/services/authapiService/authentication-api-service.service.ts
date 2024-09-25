@@ -23,4 +23,12 @@ export class AuthenticationApiServiceService {
   auth(): Observable<HttpResponse<responseMsg<any>>>{
     return this.http.get<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}home/me`);
   }
+
+  uploadProfile(data:any): Observable<HttpResponse<responseMsg<any>>>{
+    return this.http.post<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.UPLOAD_PROFILE}`,data);
+  }
+
+  addProfile(data:any): Observable<HttpResponse<responseMsg<any>>>{
+    return this.http.put<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.ADD_PROFILE}`,data);
+  }
 }

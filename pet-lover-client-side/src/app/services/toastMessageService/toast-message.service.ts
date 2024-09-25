@@ -8,13 +8,13 @@ export class ToastMessageService {
 
   constructor(private toastr: ToastrService) { }
 
-  handleHttpMessageToast(status:number, message:string){
+  handleHttpMessageToast(status:number, message:string,error:string | null){
     if(status == 200)
       this.toastr.success(message);
     else if(status == 401)
       this.toastr.warning(message);
     else
-      this.toastr.error(message);
+      this.toastr.error(error || message);
   }
 
   generateToast(type:string, message:string){

@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // import { HomePageComponent } from './home-page.component';
 
 
+
 @NgModule({
   declarations: [ 
     FeedListComponent, ProfilePageComponent
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    
   ]
 })
 export class HomePageModule { }

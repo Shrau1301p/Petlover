@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap((event: HttpEvent<any>) =>{
         if (event instanceof HttpResponse) {
-          this.toastMsg.handleHttpMessageToast(event.body.statusCode,event.body.message);
+          this.toastMsg.handleHttpMessageToast(event.body.statusCode,event.body.message,event.body.error);
         }
       }),
       catchError((error) => {
