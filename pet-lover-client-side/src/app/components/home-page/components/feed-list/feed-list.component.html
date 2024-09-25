@@ -1,29 +1,47 @@
-<div *ngIf="!userLoginFor">
-  <div class="scroll-bar">
-    <div style="overflow-y: scroll; max-height: fit-content">
-      <div class="card" *ngFor="let a of item">
-        <div class="row align-items-center">
-          <div class="col-2">
-            <img src="/assets/home/profile.svg" alt="profile" />
+<div>
+  <app-navsidebar></app-navsidebar>
+  
+  <section *ngIf="!userLoginFor" style="position: absolute; z-index: -1;">
+    <div class="scroll-bar">
+      <div style="overflow-y: scroll; max-height: fit-content">
+        <div class="card" *ngFor="let a of item">
+          <div class="row align-items-center">
+            <div class="col-2">
+              <img src="/assets/home/profile.svg" alt="profile" />
+            </div>
+            <div class="col">
+              <h5 class="card-title">{{ a.name }}</h5>
+            </div>
           </div>
-          <div class="col">
-            <h5 class="card-title">{{ a.name }}</h5>
+          <img src="/assets/home/feed1.svg" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <p class="card-text">
+              The Labrador Retriever or simply Labrador is a British breed of
+              retriever gun dog. It was developed ... Read More 
+            </p>
+            <i class="bi bi-heart h4"></i>
+            <i class="bi bi-chat-left-dots h4"></i>
+            <i class="bi bi-send h4"></i>
+            <label>Comment</label><span>12</span> <label>Likes</label
+              ><span>120</span>
+            </div>
           </div>
-        </div>
-        <img src="/assets/home/feed1.svg" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <p class="card-text">
-            The Labrador Retriever or simply Labrador is a British breed of
-            retriever gun dog. It was developed ... Read More 
-          </p>
-          <i class="bi bi-heart h4"></i>
-          <i class="bi bi-chat-left-dots h4"></i>
-          <i class="bi bi-send h4"></i>
-          <label>Comment</label><span>12</span> <label>Likes</label
-          ><span>120</span>
         </div>
       </div>
-    </div>
+    </section>
+    
+    <div class="card profile-form">
+      <h1 class="card-title">Profile First!</h1>
+      <p class="card-subtitle">Create Your Profile & Dive into the Fun!</p>
+      <!-- Button trigger modal -->
+      <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      >
+      Create Profile
+    </button>
   </div>
 </div>
 

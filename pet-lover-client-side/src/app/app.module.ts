@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 // import { HomepageComponent } from './components/homepage/homepage.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { SharedModule } from './shared/shared.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CreateProfileModalComponent } from './modal/create-profile-modal/create-profile-modal.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -33,6 +34,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     CreateProfileModalComponent,
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
