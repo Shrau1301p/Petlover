@@ -6,21 +6,29 @@ import { FeedListComponent } from './components/feed-list/feed-list.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { NavsidebarComponent } from '../../shared/components/navsidebar/navsidebar.component';
-// import { HomePageComponent } from './home-page.component';
+import { AddFeedPageComponent } from './components/add-feed-page/add-feed-page.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { FileUploadModule } from 'ng2-file-upload';
+import { MatIcon } from '@angular/material/icon';
 
 
 
 @NgModule({
   declarations: [ 
-    FeedListComponent, ProfilePageComponent
+    FeedListComponent, ProfilePageComponent, AddFeedPageComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     HomePageRoutingModule,
-    SharedModule
-    
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIcon,
+    FileUploadModule,
   ]
 })
 export class HomePageModule { }

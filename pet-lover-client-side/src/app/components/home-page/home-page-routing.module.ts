@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FeedListComponent } from './components/feed-list/feed-list.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { AddFeedPageComponent } from './components/add-feed-page/add-feed-page.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path:'profile', 
     component: ProfilePageComponent
+  },
+  {
+    path:'add-feed',
+    component: AddFeedPageComponent
   },
   { 
     path: '', 

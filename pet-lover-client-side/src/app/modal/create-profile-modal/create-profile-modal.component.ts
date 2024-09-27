@@ -56,7 +56,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   fileChangeEvent(event: any): void {
     this.file = event.target.files.item(0);
   }
-
+ 
   onSubmit(): void {
     this.uploader.uploadAll();
     this.data  = {
