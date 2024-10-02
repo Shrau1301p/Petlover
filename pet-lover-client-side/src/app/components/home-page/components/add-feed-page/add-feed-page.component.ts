@@ -20,7 +20,7 @@ export class AddFeedPageComponent implements OnInit, OnDestroy {
     itemAlias: 'feedImage',
     authToken: this.authTokenBearer,
     allowedFileType: ['image'],
-    disableMultipart: true
+    
   });
 
   constructor() { }

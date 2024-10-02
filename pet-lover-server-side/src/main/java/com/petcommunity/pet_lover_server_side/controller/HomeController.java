@@ -1,6 +1,8 @@
 package com.petcommunity.pet_lover_server_side.controller;
 
 
+import java.io.File;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.petcommunity.pet_lover_server_side.dto.ProfileDetails;
 import com.petcommunity.pet_lover_server_side.dto.ResponseMessage;
@@ -47,34 +51,25 @@ public class HomeController {
 		}
 	}
 	
-	
 	@PostMapping("/uploadImage")
-	private ResponseEntity<ResponseMessage<String>> uploadImage(@RequestBody ProfileDetails profile){
+	private ResponseEntity<ResponseMessage<String>> uploadImage(@RequestBody File file){
 		ResponseMessage<String> responseMessage = new ResponseMessage<>();
 		try {
-//			  File f = new ClassPathResource("").getFile();
-//		      final Path path = Paths.get(f.getAbsolutePath() + File.separator + "static" + File.separator + "image");
-//
-//		      if (!Files.exists(path)) {
-//		        Files.createDirectories(path);
-//		      }
-//
-//		      Path filePath = path.resolve(file.getOriginalFilename());
-//		      Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-//
-//		      String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-//		          .path("/image/")
-//		          .path(file.getOriginalFilename())
-//		          .toUriString();
-//
-//		      var result = Map.of(
-//		          "filename", file.getOriginalFilename(),
-//		          "fileUri", fileUri
-//		      );
-			responseMessage.setData("heelo");
-			responseMessage.setMessage("Get Image");
-	        responseMessage.setStatusCode(HttpStatus.OK.value());
-	        return ResponseEntity.ok(responseMessage);
+			ClassLoader classLoader = getClass().getClassLoader();
+			File newFile = new File(classLoader.getResource(".").getFile() +"/static/avatra"+ file.getAbsolutePath());
+			if (newFile.createNewFile()) {
+			    System.out.println("File is created!");
+			    responseMessage.setData(null);
+			    responseMessage.setMessage("Image is updated");
+			    responseMessage.setStatusCode(HttpStatus.OK.value());
+			    return ResponseEntity.ok(responseMessage);
+			} else {
+			    System.out.println("File already exists.");
+			    responseMessage.setData(null);
+			    responseMessage.setMessage("Image is not updated");
+			    responseMessage.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
+			    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(responseMessage);
+			}
 		}catch (Exception e) {
 			// TODO: handle exception
 			responseMessage.setError(e.toString());

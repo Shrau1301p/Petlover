@@ -7,6 +7,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationApiServiceService } from '../../services/authapiService/authentication-api-service.service';
 import { ToastMessageService } from '../../services/toastMessageService/toast-message.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-profile-modal',
@@ -22,6 +23,7 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
   data!:Profile;
   file!: File;
   id!: string;
+  url!: SafeUrl;
   authTokenBearer : string | undefined = `Bearer ${localStorage.getItem('token') || undefined}` 
   
   public uploader: FileUploader = new FileUploader({
@@ -29,10 +31,10 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
     itemAlias: 'profileImage',
     authToken: this.authTokenBearer,
     allowedFileType: ['image'],
-    disableMultipart :true
+    disableMultipart :true,
   });
   
-  constructor(private dialogRef: MatDialogRef<CreateProfileModalComponent>,private authservice:AuthenticationApiServiceService,private toastMsg: ToastMessageService){}
+  constructor(private dialogRef: MatDialogRef<CreateProfileModalComponent>,private authservice:AuthenticationApiServiceService,private toastMsg: ToastMessageService,private sanitizer:DomSanitizer){}
   
   ngOnInit(): void {
     this.profileForm = new FormGroup({
@@ -50,11 +52,12 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
         this.toastMsg.generateToast('error','something went wrong');
       }
     });
-    
   }
   
   fileChangeEvent(event: any): void {
     this.file = event.target.files.item(0);
+    this.url = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(this.file));
+    // console.log(this.url);
   }
  
   onSubmit(): void {
@@ -66,6 +69,14 @@ export class CreateProfileModalComponent implements OnInit, OnDestroy {
       category : this.profileForm.value.category,
       describtion : this.profileForm.value.describtion, 
     }
+    // this.authservice.uploadProfile(this.file).pipe(takeUntil(this.destroy$)).subscribe({
+    //   next: (respo:any)=> {
+        
+    //   },
+    //   error: ()=>{
+    //     this.toastMsg.generateToast('error','something went wrong');
+    //   }
+    // });
     this.dialogRef.close(this.data);
   }
 

@@ -12,12 +12,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MatIcon } from '@angular/material/icon';
-
-
+import { ChatPageComponent } from './components/chat-page/chat-page.component';
+import { SettingPageComponent } from './components/setting-page/setting-page.component';
 
 @NgModule({
   declarations: [ 
-    FeedListComponent, ProfilePageComponent, AddFeedPageComponent
+    FeedListComponent, ProfilePageComponent, AddFeedPageComponent, ChatPageComponent, SettingPageComponent
   ],
   imports: [
     CommonModule,
