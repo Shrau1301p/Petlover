@@ -5,6 +5,7 @@ import { responseMsg } from '../../constants/responseMsg';
 import { environment } from '../../../environments/environment.development';
 import { ENDPOINTS } from '../../enums/endpoints';
 import { Profile } from '../../constants/profile';
+import { feed } from '../../constants/feed';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,19 @@ export class AuthenticationApiServiceService {
     return this.http.get<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}home/me`);
   }
 
-  uploadProfile(data:any): Observable<HttpResponse<responseMsg<any>>>{
-    return this.http.post<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.UPLOAD_PROFILE}`,data);
-  }
+  // uploadProfile(data:any): Observable<HttpResponse<responseMsg<any>>>{
+  //   return this.http.post<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.UPLOAD_PROFILE}`,data);
+  // }
 
   addProfile(data:Profile): Observable<HttpResponse<responseMsg<any>>>{
     return this.http.put<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.ADD_PROFILE}`,data);
+  }
+
+  addFeed(data:feed): Observable<HttpResponse<responseMsg<any>>>{
+    return this.http.post<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.ADD_FEED}`,data);
+  }
+
+  getAllFeeds(): Observable<HttpResponse<responseMsg<any>>>{
+    return this.http.get<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.SHOW_FEEDS}`);
   }
 }

@@ -30,6 +30,30 @@
             </div>
           </div>
         </div>
+
+        <div >
+          <div class="card" *ngFor="let a of feeds">
+            <div class="row align-items-center">
+              <div class="col-2">
+                <img src="/assets/home/profile.svg" alt="profile" />
+              </div>
+              <div class="col">
+                <h5 class="card-title">AAA</h5>
+              </div>
+            </div>
+            <img src="/assets/home/feed1.svg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <p class="card-text">
+                {{a.caption}}
+              </p>
+              <i class="bi bi-heart h4"></i>
+              <i class="bi bi-chat-left-dots h4"></i>
+              <i class="bi bi-send h4"></i>
+              <label>Comment</label><span>12</span> <label>Likes</label
+                ><span>120</span>
+              </div>
+            </div>
+          </div>
       </div>
     </section>
 </div>

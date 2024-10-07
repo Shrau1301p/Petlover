@@ -15,6 +15,7 @@ export class FeedListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   
   item!: { name: string }[];
+  feeds! : any [];
   userLoginFor: string | null = localStorage.getItem("isFirstTimeLogin");
   
   constructor(public dialog: MatDialog,private authservice:AuthenticationApiServiceService,private toastMsg: ToastMessageService) {}
@@ -38,7 +39,17 @@ export class FeedListComponent implements OnInit, OnDestroy {
       }
     ];
 
-    
+    this.authservice.getAllFeeds().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (respo:any)=> {
+        if(respo.statusCode == 200){
+          console.log('Feeds:', respo);
+          this.feeds = respo.data;
+        } 
+      },
+      error: ()=>{
+        this.toastMsg.generateToast('error','something went wrong');
+      }
+    });
   }
  
   openDialog(): void {

@@ -1,38 +1,45 @@
 package com.petcommunity.pet_lover_server_side.controller;
 
-
-import java.io.File;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petcommunity.pet_lover_server_side.dto.FeedDetails;
 import com.petcommunity.pet_lover_server_side.dto.ProfileDetails;
 import com.petcommunity.pet_lover_server_side.dto.ResponseMessage;
+import com.petcommunity.pet_lover_server_side.model.Feed;
+import com.petcommunity.pet_lover_server_side.model.Images;
 import com.petcommunity.pet_lover_server_side.model.User;
+import com.petcommunity.pet_lover_server_side.service.FeedServices;
+import com.petcommunity.pet_lover_server_side.service.ImageServices;
 import com.petcommunity.pet_lover_server_side.service.UserServices;
 
 @RestController
 @RequestMapping("/home")
 public class HomeController {
 
+	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
 	private  UserServices userServices;
+	private ImageServices imageServices;
+	private FeedServices feedServices;
 	
-	public HomeController(UserServices userServices) {
+	public HomeController(UserServices userServices, ImageServices imageServices,FeedServices feedServices) {
 		super();
 		this.userServices = userServices;
+		this.imageServices = imageServices;
+		this.feedServices =feedServices;
 	}
-
 
 	@GetMapping("/me")
 	private ResponseEntity<ResponseMessage<User>> authenticatedUser(){
@@ -52,32 +59,43 @@ public class HomeController {
 	}
 	
 	@PostMapping("/uploadImage")
-	private ResponseEntity<ResponseMessage<String>> uploadImage(@RequestBody File file){
-		ResponseMessage<String> responseMessage = new ResponseMessage<>();
-		try {
-			ClassLoader classLoader = getClass().getClassLoader();
-			File newFile = new File(classLoader.getResource(".").getFile() +"/static/avatra"+ file.getAbsolutePath());
-			if (newFile.createNewFile()) {
-			    System.out.println("File is created!");
-			    responseMessage.setData(null);
-			    responseMessage.setMessage("Image is updated");
-			    responseMessage.setStatusCode(HttpStatus.OK.value());
-			    return ResponseEntity.ok(responseMessage);
-			} else {
-			    System.out.println("File already exists.");
-			    responseMessage.setData(null);
-			    responseMessage.setMessage("Image is not updated");
-			    responseMessage.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
-			    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(responseMessage);
-			}
-		}catch (Exception e) {
-			// TODO: handle exception
-			responseMessage.setError(e.toString());
+	private ResponseEntity<ResponseMessage<Long>> uploadImage(@RequestParam("file") MultipartFile file) {
+	    ResponseMessage<Long> responseMessage = new ResponseMessage<>();
+	    try {
+//	        // Get the resource folder path
+//	        ClassLoader classLoader = getClass().getClassLoader();
+//	        File resourceFolder = new File(classLoader.getResource("").getFile());
+//
+//	        // Create a directory inside the resources folder (static/avatar)
+//	        String targetDirectoryPath = resourceFolder.getAbsolutePath() + "/static/avatar";
+//	        File targetDirectory = new File(targetDirectoryPath);
+//	        if (!targetDirectory.exists()) {
+//	            targetDirectory.mkdirs();  // Creates the directory if it doesn't exist
+//	        }
+//	        
+//	        // Save the file in the target directory
+//	        File newFile = new File(targetDirectory, file.getOriginalFilename());
+//	        Files.copy(file.getInputStream(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//
+//	        // Build the response
+//	        String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//	                .path("/static/profileImage/")
+//	                .path(file.getOriginalFilename())
+//	                .toUriString();
+	    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	        User currentUser = (User) authentication.getPrincipal();
+	        Images img = imageServices.uploadImage(file,currentUser.getId());
+	        responseMessage.setData(null);
+	        responseMessage.setMessage("Image uploaded successfully");
+	        responseMessage.setStatusCode(HttpStatus.OK.value());
+	        return ResponseEntity.ok(responseMessage);
+	    } catch (Exception e) {
+	        responseMessage.setError(e.toString());
 	        responseMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
-		}
+	    }
 	}
-	
+
 	
 	@PutMapping("/add-profile")
 	private ResponseEntity<ResponseMessage<User>> insertProfile(@RequestBody ProfileDetails profile){
@@ -90,6 +108,39 @@ public class HomeController {
 	        return ResponseEntity.ok(responseMessage);
 		}catch (Exception e) {
 			// TODO: handle exception
+			responseMessage.setError(e.toString());
+	        responseMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
+		}
+	}
+	
+	@PostMapping("/add-feed")
+	private ResponseEntity<ResponseMessage<Feed>> insertFeed(@RequestBody FeedDetails feed){
+		ResponseMessage<Feed> responseMessage = new ResponseMessage<>();
+		try {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	        User currentUser = (User) authentication.getPrincipal();
+			responseMessage.setData(feedServices.insertFeed(feed, currentUser.getId()));
+			responseMessage.setMessage("Posted Successfully");
+	        responseMessage.setStatusCode(HttpStatus.OK.value());
+	        return ResponseEntity.ok(responseMessage);
+		}catch (Exception e) {
+			// TODO: handle exception
+			responseMessage.setError(e.toString());
+	        responseMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
+		}
+	}
+	
+	@GetMapping("/feeds")
+	private ResponseEntity<ResponseMessage<List<Feed>>> getAllFeeds(){
+		ResponseMessage<List<Feed>> responseMessage = new ResponseMessage<>();
+		try {
+			responseMessage.setData(feedServices.showFeeds());
+//	        responseMessage.setMessage("Authentication Successfull");
+	        responseMessage.setStatusCode(HttpStatus.OK.value());
+	        return ResponseEntity.ok(responseMessage);
+		} catch (Exception e) {
 			responseMessage.setError(e.toString());
 	        responseMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
