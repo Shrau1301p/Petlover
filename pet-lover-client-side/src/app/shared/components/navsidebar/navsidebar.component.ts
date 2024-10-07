@@ -44,6 +44,26 @@ export class NavsidebarComponent implements OnInit, OnDestroy {
     });
   }
 
+  addFeed():void{
+    this.routes.navigate(['home/add-feed']);
+  }
+
+  goToProfile():void{
+    this.routes.navigate(['home/profile']);
+  }
+
+  goToHome():void{
+    this.routes.navigate(['home']);
+  }
+
+  goToSetting():void{
+    this.routes.navigate(['home/setting']);
+  }
+
+  goToChat():void{
+    this.routes.navigate(['home/chats']);
+  }
+
   logout(){
     localStorage.clear();
     this.toastMsg.generateToast("success","Logout Successfully");

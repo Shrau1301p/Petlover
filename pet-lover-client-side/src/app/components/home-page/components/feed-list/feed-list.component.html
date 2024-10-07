@@ -1,9 +1,12 @@
 <div>
   <app-navsidebar></app-navsidebar>
   
-  <section *ngIf="!userLoginFor" style="position: absolute; z-index: -1;">
+  <section *ngIf="!userLoginFor" style="position: absolute;
+  z-index: -1;
+  margin-top: -624px;
+  margin-left: 188px;">
     <div class="scroll-bar">
-      <div style="overflow-y: scroll; max-height: fit-content">
+      <div >
         <div class="card" *ngFor="let a of item">
           <div class="row align-items-center">
             <div class="col-2">
@@ -27,28 +30,38 @@
             </div>
           </div>
         </div>
+
+        <div >
+          <div class="card" *ngFor="let a of feeds">
+            <div class="row align-items-center">
+              <div class="col-2">
+                <img src="/assets/home/profile.svg" alt="profile" />
+              </div>
+              <div class="col">
+                <h5 class="card-title">AAA</h5>
+              </div>
+            </div>
+            <img src="/assets/home/feed1.svg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <p class="card-text">
+                {{a.caption}}
+              </p>
+              <i class="bi bi-heart h4"></i>
+              <i class="bi bi-chat-left-dots h4"></i>
+              <i class="bi bi-send h4"></i>
+              <label>Comment</label><span>12</span> <label>Likes</label
+                ><span>120</span>
+              </div>
+            </div>
+          </div>
       </div>
     </section>
-    
-    <div class="card profile-form">
-      <h1 class="card-title">Profile First!</h1>
-      <p class="card-subtitle">Create Your Profile & Dive into the Fun!</p>
-      <!-- Button trigger modal -->
-      <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-      >
-      Create Profile
-    </button>
-  </div>
 </div>
 
 <div class="card profile-form" *ngIf="userLoginFor">
   <h1 class="card-title">Profile First!</h1>
   <p class="card-subtitle">Create Your Profile & Dive into the Fun!</p>
   <!-- Button trigger modal -->
-  <button (click)="auth()">Check the authentication</button>
+  <!-- <button (click)="auth()">Check the authentication</button> -->
   <button mat-raised-button (click)="openDialog()">Create Profile</button>
 </div>

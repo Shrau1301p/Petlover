@@ -1,0 +1,16 @@
+<div>
+    <app-navsidebar></app-navsidebar>
+    <div class="feed-form">
+        <form class="form-item" [formGroup]="addFeedForm" (ngSubmit)="onSubmit()">
+            <img [src]="url" alt="no" *ngIf="url" class="view-img" />
+            <a (click)="selectFile.click()" style="margin-left: 15%; margin-top: 15%;"><mat-icon fontIcon="add_box"></mat-icon></a>
+            <input class="feed-img" #selectFile multipart type="file" ng2FileSelect [uploader]="uploader" (change)="fileChangeEvent($event)"  />
+            <mat-form-field>
+              <mat-label>Enter Caption</mat-label>
+              <input matInput placeholder="Enter Caption" formControlName="caption" />
+            </mat-form-field>
+            <button mat-raised-button type="submit">Post</button>
+        </form>
+    </div>
+
+</div>

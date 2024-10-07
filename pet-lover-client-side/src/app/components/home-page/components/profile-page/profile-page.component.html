@@ -1,13 +1,18 @@
-<div class="container">
+  
+    <div class="container">
         <div class="card profile-card">
             <img src="/assets/home/profile.svg" style="width: 8rem; height: 8rem;" alt="profile" />
             <div class="card-body">
                 <b style="margin-left: 5%;">Robbert</b>
-                <p class="card-text">12 Post</p>
-                <p class="card-text">62 Followers</p>
-                <p class="card-text">120 Following</p>
-                <button class="btn btn-primary" onclick="editProfile">Edit Profile</button>
             </div>
+        </div>
+        <div class="post">
+            <p class="card-text">12</p><p> Post</p><span>
+
+                <p class="card-text">62 </p><p>Followers</p>
+            </span>
+            <p class="card-text">120 </p><p>Following</p>
+            <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
         </div>
         <div class="row">
             <div class="col">
@@ -42,4 +47,4 @@
                 <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
             </div>
         </div>
-</div>
+    </div>

@@ -1,0 +1,25 @@
+.feed-form{
+    background-image: url('/assets/home/paw.jpg');
+    width: 43%;
+    height: 100%;
+    background-repeat: no-repeat;
+    border-radius: 30rem;
+    position: absolute;
+    margin-top: -41%;
+    margin-left: 37%;
+    .form-item{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin-left: 5rem;
+        margin-top: 15rem;
+        background-color: rgba(250, 235, 215, 0.449);
+    }
+    .feed-img{
+        padding: 2rem;
+    }
+    .view-img{
+        width: 5rem;
+        height: 5rem;
+    }
+}

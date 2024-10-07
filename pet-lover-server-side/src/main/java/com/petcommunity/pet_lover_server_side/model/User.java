@@ -9,12 +9,18 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -38,18 +44,24 @@ public class User implements UserDetails{
 	private String category;
 	
 	private String describtion;
-	private String aavtar;
 	
-	 @CreationTimestamp
-	 @Column(updatable = false, name = "created_at")
-	 private Date createdAt;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="avatar_id")
+	private Images aavtar;
+	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<Feed> feed;
+	
+	@CreationTimestamp
+	@Column(updatable = false, name = "created_at")
+	private Date createdAt;
 
-	 @UpdateTimestamp
-	 @Column(name = "updated_at")
-	 private Date updatedAt;
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private Date updatedAt;
 	
-	
-	 public User() {
+	public User() {
 	}
 	
 	public User(String username, String password) {
@@ -58,13 +70,12 @@ public class User implements UserDetails{
 		this.password = password;
 	}
 	
-	public User(String petName, Date dobDate, String category, String describtion, String aavtar) {
+	public User(String petName, Date dobDate, String category, String describtion) {
 		super();
 		this.petName = petName;
 		this.dobDate = dobDate;
 		this.category = category;
 		this.describtion = describtion;
-		this.aavtar = aavtar;
 	}
 	
 	public Long getId() {
@@ -124,11 +135,12 @@ public class User implements UserDetails{
 		this.describtion = describtion;
 	}
 
-	public String getAavtar() {
+	
+	public Images getAavtar() {
 		return aavtar;
 	}
 
-	public void setAavtar(String aavtar) {
+	public void setAavtar(Images aavtar) {
 		this.aavtar = aavtar;
 	}
 
@@ -179,6 +191,7 @@ public class User implements UserDetails{
 				+ ", dobDate=" + dobDate + ", category=" + category + ", describtion=" + describtion + ", aavtar="
 				+ aavtar + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
+
 	
 	
 	

@@ -1,7 +1,16 @@
 <h2 mat-dialog-title>Create Profile</h2>
 <mat-dialog-content>
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <input class="avatar" type="file" ng2FileSelect [uploader]="uploader" />
+    <div *ngIf="url">
+      <img class="view-img" [src]="url" alt="avatar" />
+    </div>
+    <input
+      class="avatar"
+      type="file"
+      (change)="fileChangeEvent($event)"
+      ng2FileSelect
+      [uploader]="uploader"
+    />
     <mat-form-field>
       <mat-label>Enter Username</mat-label>
       <input matInput placeholder="Enter Name" formControlName="name" />
@@ -39,6 +48,3 @@
     <button mat-button type="submit">Submit</button>
   </form>
 </mat-dialog-content>
-<!-- <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</mat-dialog-actions> -->
