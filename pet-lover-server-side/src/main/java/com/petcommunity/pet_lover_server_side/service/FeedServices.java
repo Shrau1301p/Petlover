@@ -31,4 +31,8 @@ public class FeedServices {
 	public List<Feed> showFeeds(){
 		return feedRepository.findAll();
 	}
+	
+	public List<Feed> getFeedsByUserId(Long user_id){
+		return feedRepository.findByUserId(user_id).orElseThrow();
+	}
 }

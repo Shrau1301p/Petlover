@@ -1,7 +1,5 @@
 package com.petcommunity.pet_lover_server_side.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -15,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.petcommunity.pet_lover_server_side.dto.FeedDetails;
 import com.petcommunity.pet_lover_server_side.dto.ProfileDetails;
 import com.petcommunity.pet_lover_server_side.dto.ResponseMessage;
-import com.petcommunity.pet_lover_server_side.model.Feed;
 import com.petcommunity.pet_lover_server_side.model.Images;
 import com.petcommunity.pet_lover_server_side.model.User;
-import com.petcommunity.pet_lover_server_side.service.FeedServices;
 import com.petcommunity.pet_lover_server_side.service.ImageServices;
 import com.petcommunity.pet_lover_server_side.service.UserServices;
 
@@ -32,13 +27,12 @@ public class HomeController {
 	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
 	private  UserServices userServices;
 	private ImageServices imageServices;
-	private FeedServices feedServices;
 	
-	public HomeController(UserServices userServices, ImageServices imageServices,FeedServices feedServices) {
+	
+	public HomeController(UserServices userServices, ImageServices imageServices) {
 		super();
 		this.userServices = userServices;
 		this.imageServices = imageServices;
-		this.feedServices =feedServices;
 	}
 
 	@GetMapping("/me")
@@ -59,8 +53,8 @@ public class HomeController {
 	}
 	
 	@PostMapping("/uploadImage")
-	private ResponseEntity<ResponseMessage<Long>> uploadImage(@RequestParam("file") MultipartFile file) {
-	    ResponseMessage<Long> responseMessage = new ResponseMessage<>();
+	private ResponseEntity<ResponseMessage<Images>> uploadImage(@RequestParam("file") MultipartFile file) {
+	    ResponseMessage<Images> responseMessage = new ResponseMessage<>();
 	    try {
 //	        // Get the resource folder path
 //	        ClassLoader classLoader = getClass().getClassLoader();
@@ -85,7 +79,7 @@ public class HomeController {
 	    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	        User currentUser = (User) authentication.getPrincipal();
 	        Images img = imageServices.uploadImage(file,currentUser.getId());
-	        responseMessage.setData(null);
+	        responseMessage.setData(img);
 	        responseMessage.setMessage("Image uploaded successfully");
 	        responseMessage.setStatusCode(HttpStatus.OK.value());
 	        return ResponseEntity.ok(responseMessage);
@@ -114,37 +108,6 @@ public class HomeController {
 		}
 	}
 	
-	@PostMapping("/add-feed")
-	private ResponseEntity<ResponseMessage<Feed>> insertFeed(@RequestBody FeedDetails feed){
-		ResponseMessage<Feed> responseMessage = new ResponseMessage<>();
-		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	        User currentUser = (User) authentication.getPrincipal();
-			responseMessage.setData(feedServices.insertFeed(feed, currentUser.getId()));
-			responseMessage.setMessage("Posted Successfully");
-	        responseMessage.setStatusCode(HttpStatus.OK.value());
-	        return ResponseEntity.ok(responseMessage);
-		}catch (Exception e) {
-			// TODO: handle exception
-			responseMessage.setError(e.toString());
-	        responseMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
-		}
-	}
 	
-	@GetMapping("/feeds")
-	private ResponseEntity<ResponseMessage<List<Feed>>> getAllFeeds(){
-		ResponseMessage<List<Feed>> responseMessage = new ResponseMessage<>();
-		try {
-			responseMessage.setData(feedServices.showFeeds());
-//	        responseMessage.setMessage("Authentication Successfull");
-	        responseMessage.setStatusCode(HttpStatus.OK.value());
-	        return ResponseEntity.ok(responseMessage);
-		} catch (Exception e) {
-			responseMessage.setError(e.toString());
-	        responseMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
-		}
-	}
 	
 }

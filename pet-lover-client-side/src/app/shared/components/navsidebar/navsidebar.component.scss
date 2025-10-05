@@ -1,9 +1,17 @@
+.navbar{
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+.container-fluid{
+    position: sticky;
+    top: 0;
+}
 .menu-bar{
     font-family: "josefin slab";
     font-size: larger;
     font-weight: 600;
     width: 15%;
-    
     .menu-items{
         color: white;
         background-color: #01204E;
