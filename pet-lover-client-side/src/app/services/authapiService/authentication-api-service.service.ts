@@ -35,10 +35,14 @@ export class AuthenticationApiServiceService {
   }
 
   addFeed(data:feed): Observable<HttpResponse<responseMsg<any>>>{
-    return this.http.post<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.ADD_FEED}`,data);
+    return this.http.post<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.FEED_URL}${ENDPOINTS.ADD_FEED}`,data);
   }
 
   getAllFeeds(): Observable<HttpResponse<responseMsg<any>>>{
-    return this.http.get<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.HOME_URL}${ENDPOINTS.SHOW_FEEDS}`);
+    return this.http.get<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.FEED_URL}${ENDPOINTS.SHOW_FEEDS}`);
+  }
+
+  getFeedsByUser(): Observable<HttpResponse<responseMsg<any>>>{
+    return this.http.get<HttpResponse<responseMsg<any>>>(`${environment.BASE_URL}${environment.FEED_URL}${ENDPOINTS.USER_FEEDS}`);
   }
 }

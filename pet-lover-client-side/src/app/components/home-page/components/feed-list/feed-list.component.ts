@@ -16,6 +16,7 @@ export class FeedListComponent implements OnInit, OnDestroy {
   
   item!: { name: string }[];
   feeds! : any [];
+  profileDone! : boolean;
   userLoginFor: string | null = localStorage.getItem("isFirstTimeLogin");
   
   constructor(public dialog: MatDialog,private authservice:AuthenticationApiServiceService,private toastMsg: ToastMessageService) {}
@@ -63,6 +64,7 @@ export class FeedListComponent implements OnInit, OnDestroy {
           next: (respo:any)=> {
             if(respo.statusCode == 200){
               console.log('Dialog result:', result);
+              this.profileDone =true;
             } 
           },
           error: ()=>{

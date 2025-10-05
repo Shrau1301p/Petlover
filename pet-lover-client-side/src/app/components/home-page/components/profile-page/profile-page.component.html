@@ -7,44 +7,17 @@
             </div>
         </div>
         <div class="post">
-            <p class="card-text">12</p><p> Post</p><span>
+            <p class="card-text">{{totalPost}}</p><p> Post</p><span>
 
-                <p class="card-text">62 </p><p>Followers</p>
+                <!-- <p class="card-text">62 </p><p>Followers</p> -->
             </span>
-            <p class="card-text">120 </p><p>Following</p>
+            <!-- <p class="card-text">120 </p><p>Following</p> -->
             <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
         </div>
         <div class="row">
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-            <div class="col">
+            <div class="col" *ngFor="let item of feeds">
                 <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-            <div class="col">
-                <img src="/assets/home/feed1.svg" class="profile-img" alt="..." />
-            </div>
-        </div>
+        
     </div>

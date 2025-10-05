@@ -4,5 +4,6 @@ export enum ENDPOINTS{
     UPLOAD_PROFILE = 'uploadImage',
     ADD_PROFILE = 'add-profile',
     ADD_FEED = 'add-feed',
-    SHOW_FEEDS = 'feeds'
+    SHOW_FEEDS = 'show-feeds',
+    USER_FEEDS = 'user-feed'
 }
